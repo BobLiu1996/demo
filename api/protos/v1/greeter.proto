@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package demo.v1;
+
+import "google/api/annotations.proto";
+import "openapi/v3/annotations.proto";
+import "validate/validate.proto";
+
+option go_package = "demo/api/v1;v1";
+
+
+// The greeting service definition.
+service GreeterSvc {
+  // Sends a greeting
+  rpc ListGreeter (ListGreeterReq) returns (ListGreeterRsp) {
+    option (google.api.http) = {
+      post: "/v1/greeter/List"
+      body:"*"
+    };
+    option (openapi.v3.operation) = {
+      summary: "获取Greeter列表"
+    };
+  }
+}
+
+// The request message containing the user's name.
+message ListGreeterReq {
+
+}
+
+// The response message containing the greetings
+message ListGreeterRsp {
+  message Body {
+    repeated Greeter greeters = 1; // Greeters
+  }
+  Body body = 1;
+}
+
+message Greeter {
+  string name = 1; // Greeter Name
+  string age = 2;
+}

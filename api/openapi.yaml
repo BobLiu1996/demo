@@ -1,0 +1,57 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: GreeterSvc API
+    description: The greeting service definition.
+    version: 0.0.1
+paths:
+    /v1/greeter/List:
+        post:
+            tags:
+                - GreeterSvc
+            summary: 获取Greeter列表
+            description: Sends a greeting
+            operationId: GreeterSvc_ListGreeter
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/demo.v1.ListGreeterReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/demo.v1.ListGreeterRsp'
+components:
+    schemas:
+        demo.v1.Greeter:
+            type: object
+            properties:
+                name:
+                    type: string
+                age:
+                    type: string
+        demo.v1.ListGreeterReq:
+            type: object
+            properties: {}
+            description: The request message containing the user's name.
+        demo.v1.ListGreeterRsp:
+            type: object
+            properties:
+                body:
+                    $ref: '#/components/schemas/demo.v1.ListGreeterRsp_Body'
+            description: The response message containing the greetings
+        demo.v1.ListGreeterRsp_Body:
+            type: object
+            properties:
+                greeters:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/demo.v1.Greeter'
+tags:
+    - name: GreeterSvc

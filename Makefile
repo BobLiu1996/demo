@@ -39,6 +39,10 @@ api:
 	       --validate_out=paths=source_relative,lang=go:./api/v1 \
 	       $(API_PROTO_FILES)
 
+.PHONY: dao
+dao:
+	go run ./internal/data/gen/gen.go
+
 .PHONY: build
 # build
 build:

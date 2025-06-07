@@ -7,7 +7,8 @@ import (
 
 // Greeter is a Greeter model.
 type Greeter struct {
-	Hello string
+	Name string
+	Age  uint32
 }
 
 // GreeterRepo is a Greater repo.
@@ -30,8 +31,6 @@ func NewGreeterUsecase(repo GreeterRepo, logger log.Logger) *GreeterUsecase {
 	return &GreeterUsecase{repo: repo, log: log.NewHelper(logger)}
 }
 
-// CreateGreeter creates a Greeter, and returns the new Greeter.
-func (uc *GreeterUsecase) CreateGreeter(ctx context.Context, g *Greeter) (*Greeter, error) {
-	uc.log.WithContext(ctx).Infof("CreateGreeter: %v", g.Hello)
-	return uc.repo.Save(ctx, g)
+func (uc GreeterUsecase) ListAll(ctx context.Context) ([]*Greeter, error) {
+	return uc.repo.ListAll(ctx)
 }

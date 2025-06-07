@@ -28,7 +28,7 @@ type GreeterSvcHTTPServer interface {
 
 func RegisterGreeterSvcHTTPServer(s *http.Server, srv GreeterSvcHTTPServer) {
 	r := s.Route("/")
-	r.POST("/v1/greeter/List", _GreeterSvc_ListGreeter0_HTTP_Handler(srv))
+	r.POST("/v1/greeter/list", _GreeterSvc_ListGreeter0_HTTP_Handler(srv))
 }
 
 func _GreeterSvc_ListGreeter0_HTTP_Handler(srv GreeterSvcHTTPServer) func(ctx http.Context) error {
@@ -67,7 +67,7 @@ func NewGreeterSvcHTTPClient(client *http.Client) GreeterSvcHTTPClient {
 
 func (c *GreeterSvcHTTPClientImpl) ListGreeter(ctx context.Context, in *ListGreeterReq, opts ...http.CallOption) (*ListGreeterRsp, error) {
 	var out ListGreeterRsp
-	pattern := "/v1/greeter/List"
+	pattern := "/v1/greeter/list"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationGreeterSvcListGreeter))
 	opts = append(opts, http.PathTemplate(pattern))

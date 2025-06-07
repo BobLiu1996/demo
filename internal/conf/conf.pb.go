@@ -128,9 +128,10 @@ func (x *Server) GetGrpc() *Server_GRPC {
 
 type Data struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Database      *Data_Database         `protobuf:"bytes,1,opt,name=database,proto3" json:"database,omitempty"`
+	Mysql         *Data_MySql            `protobuf:"bytes,1,opt,name=mysql,proto3" json:"mysql,omitempty"`
 	Redis         *Data_Redis            `protobuf:"bytes,2,opt,name=redis,proto3" json:"redis,omitempty"`
 	RepoSelector  string                 `protobuf:"bytes,3,opt,name=repoSelector,proto3" json:"repoSelector,omitempty"`
+	Debug         bool                   `protobuf:"varint,4,opt,name=debug,proto3" json:"debug,omitempty"` //是否开启debug，数据库可以打印sql语句
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -165,9 +166,9 @@ func (*Data) Descriptor() ([]byte, []int) {
 	return file_conf_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *Data) GetDatabase() *Data_Database {
+func (x *Data) GetMysql() *Data_MySql {
 	if x != nil {
-		return x.Database
+		return x.Mysql
 	}
 	return nil
 }
@@ -184,6 +185,13 @@ func (x *Data) GetRepoSelector() string {
 		return x.RepoSelector
 	}
 	return ""
+}
+
+func (x *Data) GetDebug() bool {
+	if x != nil {
+		return x.Debug
+	}
+	return false
 }
 
 type Server_HTTP struct {
@@ -306,28 +314,32 @@ func (x *Server_GRPC) GetTimeout() *durationpb.Duration {
 	return nil
 }
 
-type Data_Database struct {
+type Data_MySql struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Driver        string                 `protobuf:"bytes,1,opt,name=driver,proto3" json:"driver,omitempty"`
 	Source        string                 `protobuf:"bytes,2,opt,name=source,proto3" json:"source,omitempty"`
+	MaxConn       int32                  `protobuf:"varint,3,opt,name=max_conn,json=maxConn,proto3" json:"max_conn,omitempty"`
+	MaxIdleConn   int32                  `protobuf:"varint,4,opt,name=max_idle_conn,json=maxIdleConn,proto3" json:"max_idle_conn,omitempty"`
+	MaxLifetime   *durationpb.Duration   `protobuf:"bytes,5,opt,name=max_lifetime,json=maxLifetime,proto3" json:"max_lifetime,omitempty"`
+	BatchSize     int32                  `protobuf:"varint,6,opt,name=batch_size,json=batchSize,proto3" json:"batch_size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Data_Database) Reset() {
-	*x = Data_Database{}
+func (x *Data_MySql) Reset() {
+	*x = Data_MySql{}
 	mi := &file_conf_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Data_Database) String() string {
+func (x *Data_MySql) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Data_Database) ProtoMessage() {}
+func (*Data_MySql) ProtoMessage() {}
 
-func (x *Data_Database) ProtoReflect() protoreflect.Message {
+func (x *Data_MySql) ProtoReflect() protoreflect.Message {
 	mi := &file_conf_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -339,23 +351,51 @@ func (x *Data_Database) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Data_Database.ProtoReflect.Descriptor instead.
-func (*Data_Database) Descriptor() ([]byte, []int) {
+// Deprecated: Use Data_MySql.ProtoReflect.Descriptor instead.
+func (*Data_MySql) Descriptor() ([]byte, []int) {
 	return file_conf_proto_rawDescGZIP(), []int{2, 0}
 }
 
-func (x *Data_Database) GetDriver() string {
+func (x *Data_MySql) GetDriver() string {
 	if x != nil {
 		return x.Driver
 	}
 	return ""
 }
 
-func (x *Data_Database) GetSource() string {
+func (x *Data_MySql) GetSource() string {
 	if x != nil {
 		return x.Source
 	}
 	return ""
+}
+
+func (x *Data_MySql) GetMaxConn() int32 {
+	if x != nil {
+		return x.MaxConn
+	}
+	return 0
+}
+
+func (x *Data_MySql) GetMaxIdleConn() int32 {
+	if x != nil {
+		return x.MaxIdleConn
+	}
+	return 0
+}
+
+func (x *Data_MySql) GetMaxLifetime() *durationpb.Duration {
+	if x != nil {
+		return x.MaxLifetime
+	}
+	return nil
+}
+
+func (x *Data_MySql) GetBatchSize() int32 {
+	if x != nil {
+		return x.BatchSize
+	}
+	return 0
 }
 
 type Data_Redis struct {
@@ -486,14 +526,20 @@ const file_conf_proto_rawDesc = "" +
 	"\x04GRPC\x12\x18\n" +
 	"\anetwork\x18\x01 \x01(\tR\anetwork\x12\x12\n" +
 	"\x04addr\x18\x02 \x01(\tR\x04addr\x123\n" +
-	"\atimeout\x18\x03 \x01(\v2\x19.google.protobuf.DurationR\atimeout\"\x81\x04\n" +
-	"\x04Data\x125\n" +
-	"\bdatabase\x18\x01 \x01(\v2\x19.kratos.api.Data.DatabaseR\bdatabase\x12,\n" +
+	"\atimeout\x18\x03 \x01(\v2\x19.google.protobuf.DurationR\atimeout\"\xa8\x05\n" +
+	"\x04Data\x12,\n" +
+	"\x05mysql\x18\x01 \x01(\v2\x16.kratos.api.Data.MySqlR\x05mysql\x12,\n" +
 	"\x05redis\x18\x02 \x01(\v2\x16.kratos.api.Data.RedisR\x05redis\x12\"\n" +
-	"\frepoSelector\x18\x03 \x01(\tR\frepoSelector\x1a:\n" +
-	"\bDatabase\x12\x16\n" +
+	"\frepoSelector\x18\x03 \x01(\tR\frepoSelector\x12\x14\n" +
+	"\x05debug\x18\x04 \x01(\bR\x05debug\x1a\xd3\x01\n" +
+	"\x05MySql\x12\x16\n" +
 	"\x06driver\x18\x01 \x01(\tR\x06driver\x12\x16\n" +
-	"\x06source\x18\x02 \x01(\tR\x06source\x1a\xb3\x02\n" +
+	"\x06source\x18\x02 \x01(\tR\x06source\x12\x19\n" +
+	"\bmax_conn\x18\x03 \x01(\x05R\amaxConn\x12\"\n" +
+	"\rmax_idle_conn\x18\x04 \x01(\x05R\vmaxIdleConn\x12<\n" +
+	"\fmax_lifetime\x18\x05 \x01(\v2\x19.google.protobuf.DurationR\vmaxLifetime\x12\x1d\n" +
+	"\n" +
+	"batch_size\x18\x06 \x01(\x05R\tbatchSize\x1a\xb3\x02\n" +
 	"\x05Redis\x12\x12\n" +
 	"\x04addr\x18\x01 \x01(\tR\x04addr\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
@@ -526,7 +572,7 @@ var file_conf_proto_goTypes = []any{
 	(*Data)(nil),                // 2: kratos.api.Data
 	(*Server_HTTP)(nil),         // 3: kratos.api.Server.HTTP
 	(*Server_GRPC)(nil),         // 4: kratos.api.Server.GRPC
-	(*Data_Database)(nil),       // 5: kratos.api.Data.Database
+	(*Data_MySql)(nil),          // 5: kratos.api.Data.MySql
 	(*Data_Redis)(nil),          // 6: kratos.api.Data.Redis
 	(*durationpb.Duration)(nil), // 7: google.protobuf.Duration
 }
@@ -535,17 +581,18 @@ var file_conf_proto_depIdxs = []int32{
 	2,  // 1: kratos.api.Bootstrap.data:type_name -> kratos.api.Data
 	3,  // 2: kratos.api.Server.http:type_name -> kratos.api.Server.HTTP
 	4,  // 3: kratos.api.Server.grpc:type_name -> kratos.api.Server.GRPC
-	5,  // 4: kratos.api.Data.database:type_name -> kratos.api.Data.Database
+	5,  // 4: kratos.api.Data.mysql:type_name -> kratos.api.Data.MySql
 	6,  // 5: kratos.api.Data.redis:type_name -> kratos.api.Data.Redis
 	7,  // 6: kratos.api.Server.HTTP.timeout:type_name -> google.protobuf.Duration
 	7,  // 7: kratos.api.Server.GRPC.timeout:type_name -> google.protobuf.Duration
-	7,  // 8: kratos.api.Data.Redis.read_timeout:type_name -> google.protobuf.Duration
-	7,  // 9: kratos.api.Data.Redis.write_timeout:type_name -> google.protobuf.Duration
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	7,  // 8: kratos.api.Data.MySql.max_lifetime:type_name -> google.protobuf.Duration
+	7,  // 9: kratos.api.Data.Redis.read_timeout:type_name -> google.protobuf.Duration
+	7,  // 10: kratos.api.Data.Redis.write_timeout:type_name -> google.protobuf.Duration
+	11, // [11:11] is the sub-list for method output_type
+	11, // [11:11] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_conf_proto_init() }

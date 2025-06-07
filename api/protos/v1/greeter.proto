@@ -14,7 +14,7 @@ service GreeterSvc {
   // Sends a greeting
   rpc ListGreeter (ListGreeterReq) returns (ListGreeterRsp) {
     option (google.api.http) = {
-      post: "/v1/greeter/List"
+      post: "/v1/greeter/list"
       body:"*"
     };
     option (openapi.v3.operation) = {
@@ -38,5 +38,5 @@ message ListGreeterRsp {
 
 message Greeter {
   string name = 1; // Greeter Name
-  string age = 2;
+  uint32 age = 2;
 }

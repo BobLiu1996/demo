@@ -2,7 +2,6 @@ package data
 
 import (
 	"context"
-
 	"demo/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -37,6 +36,11 @@ func (r *greeterRepo) ListByHello(context.Context, string) ([]*biz.Greeter, erro
 	return nil, nil
 }
 
-func (r *greeterRepo) ListAll(context.Context) ([]*biz.Greeter, error) {
-	return nil, nil
+func (r *greeterRepo) ListAll(ctx context.Context) ([]*biz.Greeter, error) {
+	tGreeter := r.data.Query().TGreeter
+	res := make([]*biz.Greeter, 0)
+	if err := tGreeter.WithContext(ctx).Select(tGreeter.Name, tGreeter.Age).Scan(&res); err != nil {
+		return nil, err
+	}
+	return res, nil
 }

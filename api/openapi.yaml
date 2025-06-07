@@ -7,7 +7,7 @@ info:
     description: The greeting service definition.
     version: 0.0.1
 paths:
-    /v1/greeter/List:
+    /v1/greeter/list:
         post:
             tags:
                 - GreeterSvc
@@ -35,7 +35,8 @@ components:
                 name:
                     type: string
                 age:
-                    type: string
+                    type: integer
+                    format: uint32
         demo.v1.ListGreeterReq:
             type: object
             properties: {}

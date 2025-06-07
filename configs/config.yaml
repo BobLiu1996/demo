@@ -6,10 +6,10 @@ server:
     addr: 0.0.0.0:9000
     timeout: 1s
 data:
-  repoSelector: "mock"
-  database:
+  repoSelector: "mysql"
+  mysql:
     driver: mysql
-    source: root:Password123!@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=true&loc=Local
+    source: root:mystic@tcp(localhost:3306)/test?charset=utf8mb4&parseTime=true&loc=Local
   redis:
     addr: "10.141.192.134:26379,10.141.192.135:26379,10.141.192.136:26379,10.141.192.137:26379,10.141.192.138:26379,10.141.192.139:26379"
     username: ""

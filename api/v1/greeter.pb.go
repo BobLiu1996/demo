@@ -109,7 +109,7 @@ func (x *ListGreeterRsp) GetBody() *ListGreeterRsp_Body {
 type Greeter struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"` // Greeter Name
-	Age           string                 `protobuf:"bytes,2,opt,name=age,proto3" json:"age,omitempty"`
+	Age           uint32                 `protobuf:"varint,2,opt,name=age,proto3" json:"age,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -151,11 +151,11 @@ func (x *Greeter) GetName() string {
 	return ""
 }
 
-func (x *Greeter) GetAge() string {
+func (x *Greeter) GetAge() uint32 {
 	if x != nil {
 		return x.Age
 	}
-	return ""
+	return 0
 }
 
 type ListGreeterRsp_Body struct {
@@ -214,10 +214,10 @@ const file_greeter_proto_rawDesc = "" +
 	"\bgreeters\x18\x01 \x03(\v2\x10.demo.v1.GreeterR\bgreeters\"/\n" +
 	"\aGreeter\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x10\n" +
-	"\x03age\x18\x02 \x01(\tR\x03age2\x82\x01\n" +
+	"\x03age\x18\x02 \x01(\rR\x03age2\x82\x01\n" +
 	"\n" +
 	"GreeterSvc\x12t\n" +
-	"\vListGreeter\x12\x17.demo.v1.ListGreeterReq\x1a\x17.demo.v1.ListGreeterRsp\"3\xbaG\x15\x12\x13获取Greeter列表\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/greeter/ListB\x10Z\x0edemo/api/v1;v1b\x06proto3"
+	"\vListGreeter\x12\x17.demo.v1.ListGreeterReq\x1a\x17.demo.v1.ListGreeterRsp\"3\xbaG\x15\x12\x13获取Greeter列表\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/greeter/listB\x10Z\x0edemo/api/v1;v1b\x06proto3"
 
 var (
 	file_greeter_proto_rawDescOnce sync.Once

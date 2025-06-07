@@ -26,9 +26,13 @@ message Server {
 }
 
 message Data {
-  message Database {
+  message MySql {
     string driver = 1;
     string source = 2;
+    int32 max_conn = 3;
+    int32 max_idle_conn = 4;
+    google.protobuf.Duration max_lifetime = 5;
+    int32  batch_size = 6;
   }
   message Redis {
     string addr = 1;
@@ -41,7 +45,8 @@ message Data {
     bool is_cluster = 8;
     string key_prefix = 9;
   }
-  Database database = 1;
+  MySql mysql = 1;
   Redis redis = 2;
   string repoSelector =3;
+  bool debug = 4; //是否开启debug，数据库可以打印sql语句
 }

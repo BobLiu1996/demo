@@ -1,10 +1,11 @@
 syntax = "proto3";
 
-package demo.v1;
+package demo;
 
 import "google/api/annotations.proto";
 import "openapi/v3/annotations.proto";
-import "validate/validate.proto";
+// NOTE: relative path that specified proc cmd
+import "common.proto";
 
 option go_package = "demo/api/v1;v1";
 
@@ -30,10 +31,11 @@ message ListGreeterReq {
 
 // The response message containing the greetings
 message ListGreeterRsp {
+  BaseResp ret = 1;
   message Body {
     repeated Greeter greeters = 1; // Greeters
   }
-  Body body = 1;
+  Body body = 2;
 }
 
 message Greeter {

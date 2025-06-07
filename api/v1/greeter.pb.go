@@ -7,7 +7,6 @@
 package v1
 
 import (
-	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	_ "github.com/google/gnostic/openapiv3"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -64,7 +63,8 @@ func (*ListGreeterReq) Descriptor() ([]byte, []int) {
 // The response message containing the greetings
 type ListGreeterRsp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Body          *ListGreeterRsp_Body   `protobuf:"bytes,1,opt,name=body,proto3" json:"body,omitempty"`
+	Ret           *BaseResp              `protobuf:"bytes,1,opt,name=ret,proto3" json:"ret,omitempty"`
+	Body          *ListGreeterRsp_Body   `protobuf:"bytes,2,opt,name=body,proto3" json:"body,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -97,6 +97,13 @@ func (x *ListGreeterRsp) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ListGreeterRsp.ProtoReflect.Descriptor instead.
 func (*ListGreeterRsp) Descriptor() ([]byte, []int) {
 	return file_greeter_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ListGreeterRsp) GetRet() *BaseResp {
+	if x != nil {
+		return x.Ret
+	}
+	return nil
 }
 
 func (x *ListGreeterRsp) GetBody() *ListGreeterRsp_Body {
@@ -206,18 +213,19 @@ var File_greeter_proto protoreflect.FileDescriptor
 
 const file_greeter_proto_rawDesc = "" +
 	"\n" +
-	"\rgreeter.proto\x12\ademo.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1copenapi/v3/annotations.proto\x1a\x17validate/validate.proto\"\x10\n" +
-	"\x0eListGreeterReq\"x\n" +
-	"\x0eListGreeterRsp\x120\n" +
-	"\x04body\x18\x01 \x01(\v2\x1c.demo.v1.ListGreeterRsp.BodyR\x04body\x1a4\n" +
-	"\x04Body\x12,\n" +
-	"\bgreeters\x18\x01 \x03(\v2\x10.demo.v1.GreeterR\bgreeters\"/\n" +
+	"\rgreeter.proto\x12\x04demo\x1a\x1cgoogle/api/annotations.proto\x1a\x1copenapi/v3/annotations.proto\x1a\fcommon.proto\"\x10\n" +
+	"\x0eListGreeterReq\"\x94\x01\n" +
+	"\x0eListGreeterRsp\x12 \n" +
+	"\x03ret\x18\x01 \x01(\v2\x0e.demo.BaseRespR\x03ret\x12-\n" +
+	"\x04body\x18\x02 \x01(\v2\x19.demo.ListGreeterRsp.BodyR\x04body\x1a1\n" +
+	"\x04Body\x12)\n" +
+	"\bgreeters\x18\x01 \x03(\v2\r.demo.GreeterR\bgreeters\"/\n" +
 	"\aGreeter\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x10\n" +
-	"\x03age\x18\x02 \x01(\rR\x03age2\x82\x01\n" +
+	"\x03age\x18\x02 \x01(\rR\x03age2|\n" +
 	"\n" +
-	"GreeterSvc\x12t\n" +
-	"\vListGreeter\x12\x17.demo.v1.ListGreeterReq\x1a\x17.demo.v1.ListGreeterRsp\"3\xbaG\x15\x12\x13获取Greeter列表\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/greeter/listB\x10Z\x0edemo/api/v1;v1b\x06proto3"
+	"GreeterSvc\x12n\n" +
+	"\vListGreeter\x12\x14.demo.ListGreeterReq\x1a\x14.demo.ListGreeterRsp\"3\xbaG\x15\x12\x13获取Greeter列表\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/greeter/listB\x10Z\x0edemo/api/v1;v1b\x06proto3"
 
 var (
 	file_greeter_proto_rawDescOnce sync.Once
@@ -233,21 +241,23 @@ func file_greeter_proto_rawDescGZIP() []byte {
 
 var file_greeter_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_greeter_proto_goTypes = []any{
-	(*ListGreeterReq)(nil),      // 0: demo.v1.ListGreeterReq
-	(*ListGreeterRsp)(nil),      // 1: demo.v1.ListGreeterRsp
-	(*Greeter)(nil),             // 2: demo.v1.Greeter
-	(*ListGreeterRsp_Body)(nil), // 3: demo.v1.ListGreeterRsp.Body
+	(*ListGreeterReq)(nil),      // 0: demo.ListGreeterReq
+	(*ListGreeterRsp)(nil),      // 1: demo.ListGreeterRsp
+	(*Greeter)(nil),             // 2: demo.Greeter
+	(*ListGreeterRsp_Body)(nil), // 3: demo.ListGreeterRsp.Body
+	(*BaseResp)(nil),            // 4: demo.BaseResp
 }
 var file_greeter_proto_depIdxs = []int32{
-	3, // 0: demo.v1.ListGreeterRsp.body:type_name -> demo.v1.ListGreeterRsp.Body
-	2, // 1: demo.v1.ListGreeterRsp.Body.greeters:type_name -> demo.v1.Greeter
-	0, // 2: demo.v1.GreeterSvc.ListGreeter:input_type -> demo.v1.ListGreeterReq
-	1, // 3: demo.v1.GreeterSvc.ListGreeter:output_type -> demo.v1.ListGreeterRsp
-	3, // [3:4] is the sub-list for method output_type
-	2, // [2:3] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	4, // 0: demo.ListGreeterRsp.ret:type_name -> demo.BaseResp
+	3, // 1: demo.ListGreeterRsp.body:type_name -> demo.ListGreeterRsp.Body
+	2, // 2: demo.ListGreeterRsp.Body.greeters:type_name -> demo.Greeter
+	0, // 3: demo.GreeterSvc.ListGreeter:input_type -> demo.ListGreeterReq
+	1, // 4: demo.GreeterSvc.ListGreeter:output_type -> demo.ListGreeterRsp
+	4, // [4:5] is the sub-list for method output_type
+	3, // [3:4] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_greeter_proto_init() }
@@ -255,6 +265,7 @@ func file_greeter_proto_init() {
 	if File_greeter_proto != nil {
 		return
 	}
+	file_common_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

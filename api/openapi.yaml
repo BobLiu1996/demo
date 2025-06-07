@@ -18,7 +18,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/demo.v1.ListGreeterReq'
+                            $ref: '#/components/schemas/demo.ListGreeterReq'
                 required: true
             responses:
                 "200":
@@ -26,10 +26,20 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/demo.v1.ListGreeterRsp'
+                                $ref: '#/components/schemas/demo.ListGreeterRsp'
 components:
     schemas:
-        demo.v1.Greeter:
+        demo.BaseResp:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                reason:
+                    type: string
+                msg:
+                    type: string
+        demo.Greeter:
             type: object
             properties:
                 name:
@@ -37,22 +47,24 @@ components:
                 age:
                     type: integer
                     format: uint32
-        demo.v1.ListGreeterReq:
+        demo.ListGreeterReq:
             type: object
             properties: {}
             description: The request message containing the user's name.
-        demo.v1.ListGreeterRsp:
+        demo.ListGreeterRsp:
             type: object
             properties:
+                ret:
+                    $ref: '#/components/schemas/demo.BaseResp'
                 body:
-                    $ref: '#/components/schemas/demo.v1.ListGreeterRsp_Body'
+                    $ref: '#/components/schemas/demo.ListGreeterRsp_Body'
             description: The response message containing the greetings
-        demo.v1.ListGreeterRsp_Body:
+        demo.ListGreeterRsp_Body:
             type: object
             properties:
                 greeters:
                     type: array
                     items:
-                        $ref: '#/components/schemas/demo.v1.Greeter'
+                        $ref: '#/components/schemas/demo.Greeter'
 tags:
     - name: GreeterSvc

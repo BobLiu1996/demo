@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package demo;
+
+option go_package = "demo/api/v1;v1";
+import "errors/errors.proto";
+
+enum ErrorReason {
+  option (errors.default_code) = 200;
+  /////////////////////////////通用错误码(1-100)///////////////////////////////
+
+  Success = 0;
+  ParamValidate = 1 [(errors.code) = 400];
+  DataInsert = 2;
+  DataDelete = 3;
+  DataUpdate = 4;
+  DataQuery = 5;
+  DataRecordNotFound = 6;
+  Rpc = 7;
+  BizDuplicateOp = 8;
+  NotFoundHostNetwork = 9;
+  Acl = 10;
+  // 生成VmID错误
+  GenerateVMID = 101;
+}

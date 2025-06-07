@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	GreeterSvc_ListGreeter_FullMethodName = "/demo.v1.GreeterSvc/ListGreeter"
+	GreeterSvc_ListGreeter_FullMethodName = "/demo.GreeterSvc/ListGreeter"
 )
 
 // GreeterSvcClient is the client API for GreeterSvc service.
@@ -114,7 +114,7 @@ func _GreeterSvc_ListGreeter_Handler(srv interface{}, ctx context.Context, dec f
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var GreeterSvc_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "demo.v1.GreeterSvc",
+	ServiceName: "demo.GreeterSvc",
 	HandlerType: (*GreeterSvcServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

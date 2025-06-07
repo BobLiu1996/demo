@@ -24,15 +24,16 @@ func (g *GreeterService) ListGreeter(ctx context.Context, req *pb.ListGreeterReq
 	if err != nil {
 		return nil, err
 	}
-	return &pb.ListGreeterRsp{
+	rsp := &pb.ListGreeterRsp{
 		Body: &pb.ListGreeterRsp_Body{
 			Greeters: convertGreeterDoToPbs(greeters),
 		},
-	}, nil
+	}
+	return rsp, nil
 }
 
 func convertGreeterDoToPbs(gs []*biz.Greeter) []*pb.Greeter {
-	ret := make([]*pb.Greeter, len(gs))
+	ret := make([]*pb.Greeter, 0)
 	for _, g := range gs {
 		ret = append(ret, convertGreeterDoToPb(g))
 	}

@@ -11,6 +11,7 @@ API_PROTO_FILES=$(shell find ./api -name *.proto)
 .PHONY: init
 # init env
 init:
+	go install github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2@latest
 	go install github.com/envoyproxy/protoc-gen-validate@latest
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
@@ -35,6 +36,7 @@ api:
  	       --go_out=paths=source_relative:./api/v1 \
  	       --go-http_out=paths=source_relative:./api/v1 \
  	       --go-grpc_out=paths=source_relative:./api/v1 \
+ 	       --go-errors_out=paths=source_relative:./api/v1 \
 	       --openapi_out=fq_schema_naming=true,default_response=false:./api \
 	       --validate_out=paths=source_relative,lang=go:./api/v1 \
 	       $(API_PROTO_FILES)

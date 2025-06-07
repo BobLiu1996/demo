@@ -23,212 +23,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type OrderType int32
-
-const (
-	OrderType_ASC  OrderType = 0
-	OrderType_DESC OrderType = 1
-)
-
-// Enum value maps for OrderType.
-var (
-	OrderType_name = map[int32]string{
-		0: "ASC",
-		1: "DESC",
-	}
-	OrderType_value = map[string]int32{
-		"ASC":  0,
-		"DESC": 1,
-	}
-)
-
-func (x OrderType) Enum() *OrderType {
-	p := new(OrderType)
-	*p = x
-	return p
-}
-
-func (x OrderType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (OrderType) Descriptor() protoreflect.EnumDescriptor {
-	return file_common_proto_enumTypes[0].Descriptor()
-}
-
-func (OrderType) Type() protoreflect.EnumType {
-	return &file_common_proto_enumTypes[0]
-}
-
-func (x OrderType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use OrderType.Descriptor instead.
-func (OrderType) EnumDescriptor() ([]byte, []int) {
-	return file_common_proto_rawDescGZIP(), []int{0}
-}
-
-// 资源类型: 0-All 1-私有资源池 2-公有资源池
-type ResourceType int32
-
-const (
-	ResourceType_All     ResourceType = 0
-	ResourceType_Private ResourceType = 1
-	ResourceType_Public  ResourceType = 2
-)
-
-// Enum value maps for ResourceType.
-var (
-	ResourceType_name = map[int32]string{
-		0: "All",
-		1: "Private",
-		2: "Public",
-	}
-	ResourceType_value = map[string]int32{
-		"All":     0,
-		"Private": 1,
-		"Public":  2,
-	}
-)
-
-func (x ResourceType) Enum() *ResourceType {
-	p := new(ResourceType)
-	*p = x
-	return p
-}
-
-func (x ResourceType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (ResourceType) Descriptor() protoreflect.EnumDescriptor {
-	return file_common_proto_enumTypes[1].Descriptor()
-}
-
-func (ResourceType) Type() protoreflect.EnumType {
-	return &file_common_proto_enumTypes[1]
-}
-
-func (x ResourceType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use ResourceType.Descriptor instead.
-func (ResourceType) EnumDescriptor() ([]byte, []int) {
-	return file_common_proto_rawDescGZIP(), []int{1}
-}
-
-// 任务来源 1-运营后台, 3-任务计划, 4-CGBundle,5-CGBoost,6-InstanceCure
-type Source int32
-
-const (
-	Source_Unknown Source = 0
-	// 来源于Iaas
-	Source_CGBoss        Source = 1
-	Source_TaskScheduler Source = 3
-	Source_CGBundle      Source = 4
-	Source_CGBoost       Source = 5
-	Source_InstanceCure  Source = 6
-)
-
-// Enum value maps for Source.
-var (
-	Source_name = map[int32]string{
-		0: "Unknown",
-		1: "CGBoss",
-		3: "TaskScheduler",
-		4: "CGBundle",
-		5: "CGBoost",
-		6: "InstanceCure",
-	}
-	Source_value = map[string]int32{
-		"Unknown":       0,
-		"CGBoss":        1,
-		"TaskScheduler": 3,
-		"CGBundle":      4,
-		"CGBoost":       5,
-		"InstanceCure":  6,
-	}
-)
-
-func (x Source) Enum() *Source {
-	p := new(Source)
-	*p = x
-	return p
-}
-
-func (x Source) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (Source) Descriptor() protoreflect.EnumDescriptor {
-	return file_common_proto_enumTypes[2].Descriptor()
-}
-
-func (Source) Type() protoreflect.EnumType {
-	return &file_common_proto_enumTypes[2]
-}
-
-func (x Source) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use Source.Descriptor instead.
-func (Source) EnumDescriptor() ([]byte, []int) {
-	return file_common_proto_rawDescGZIP(), []int{2}
-}
-
-// 多开架构: 0-未知架构 1-单IP 2-多IP
-type MultiOpenArch int32
-
-const (
-	MultiOpenArch_UnKnown  MultiOpenArch = 0
-	MultiOpenArch_SingleIP MultiOpenArch = 1
-	MultiOpenArch_MultiIP  MultiOpenArch = 2
-)
-
-// Enum value maps for MultiOpenArch.
-var (
-	MultiOpenArch_name = map[int32]string{
-		0: "UnKnown",
-		1: "SingleIP",
-		2: "MultiIP",
-	}
-	MultiOpenArch_value = map[string]int32{
-		"UnKnown":  0,
-		"SingleIP": 1,
-		"MultiIP":  2,
-	}
-)
-
-func (x MultiOpenArch) Enum() *MultiOpenArch {
-	p := new(MultiOpenArch)
-	*p = x
-	return p
-}
-
-func (x MultiOpenArch) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (MultiOpenArch) Descriptor() protoreflect.EnumDescriptor {
-	return file_common_proto_enumTypes[3].Descriptor()
-}
-
-func (MultiOpenArch) Type() protoreflect.EnumType {
-	return &file_common_proto_enumTypes[3]
-}
-
-func (x MultiOpenArch) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use MultiOpenArch.Descriptor instead.
-func (MultiOpenArch) EnumDescriptor() ([]byte, []int) {
-	return file_common_proto_rawDescGZIP(), []int{3}
-}
-
 // 无请求参数的接口可以使用BaseRequest
 type BaseRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -431,65 +225,11 @@ func (x *Response) GetBody() *anypb.Any {
 	return nil
 }
 
-type Order struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	Field string                 `protobuf:"bytes,1,opt,name=field,proto3" json:"field,omitempty"`
-	// 枚举类型: ASC或DESC
-	Type          OrderType `protobuf:"varint,2,opt,name=type,proto3,enum=cginstance.OrderType" json:"type,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Order) Reset() {
-	*x = Order{}
-	mi := &file_common_proto_msgTypes[4]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Order) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Order) ProtoMessage() {}
-
-func (x *Order) ProtoReflect() protoreflect.Message {
-	mi := &file_common_proto_msgTypes[4]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Order.ProtoReflect.Descriptor instead.
-func (*Order) Descriptor() ([]byte, []int) {
-	return file_common_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *Order) GetField() string {
-	if x != nil {
-		return x.Field
-	}
-	return ""
-}
-
-func (x *Order) GetType() OrderType {
-	if x != nil {
-		return x.Type
-	}
-	return OrderType_ASC
-}
-
 var File_common_proto protoreflect.FileDescriptor
 
 const file_common_proto_rawDesc = "" +
 	"\n" +
-	"\fcommon.proto\x12\n" +
-	"cginstance\x1a\x17validate/validate.proto\x1a\x19google/protobuf/any.proto\"\r\n" +
+	"\fcommon.proto\x12\x04demo\x1a\x17validate/validate.proto\x1a\x19google/protobuf/any.proto\"\r\n" +
 	"\vBaseRequest\"H\n" +
 	"\bBaseResp\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x16\n" +
@@ -498,33 +238,10 @@ const file_common_proto_rawDesc = "" +
 	"\vPageOptions\x12\x17\n" +
 	"\x02no\x18\x01 \x01(\x05B\a\xfaB\x04\x1a\x02(\x01R\x02no\x12\x1e\n" +
 	"\x04size\x18\x02 \x01(\x05B\n" +
-	"\xfaB\a\x1a\x05\x18\xac\x02(\x01R\x04size\"\\\n" +
-	"\bResponse\x12&\n" +
-	"\x03ret\x18\x01 \x01(\v2\x14.cginstance.BaseRespR\x03ret\x12(\n" +
-	"\x04body\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x04body\"H\n" +
-	"\x05Order\x12\x14\n" +
-	"\x05field\x18\x01 \x01(\tR\x05field\x12)\n" +
-	"\x04type\x18\x02 \x01(\x0e2\x15.cginstance.OrderTypeR\x04type*\x1e\n" +
-	"\tOrderType\x12\a\n" +
-	"\x03ASC\x10\x00\x12\b\n" +
-	"\x04DESC\x10\x01*0\n" +
-	"\fResourceType\x12\a\n" +
-	"\x03All\x10\x00\x12\v\n" +
-	"\aPrivate\x10\x01\x12\n" +
-	"\n" +
-	"\x06Public\x10\x02*a\n" +
-	"\x06Source\x12\v\n" +
-	"\aUnknown\x10\x00\x12\n" +
-	"\n" +
-	"\x06CGBoss\x10\x01\x12\x11\n" +
-	"\rTaskScheduler\x10\x03\x12\f\n" +
-	"\bCGBundle\x10\x04\x12\v\n" +
-	"\aCGBoost\x10\x05\x12\x10\n" +
-	"\fInstanceCure\x10\x06*7\n" +
-	"\rMultiOpenArch\x12\v\n" +
-	"\aUnKnown\x10\x00\x12\f\n" +
-	"\bSingleIP\x10\x01\x12\v\n" +
-	"\aMultiIP\x10\x02B\x10Z\x0edemo/api/v1;v1b\x06proto3"
+	"\xfaB\a\x1a\x05\x18\xac\x02(\x01R\x04size\"V\n" +
+	"\bResponse\x12 \n" +
+	"\x03ret\x18\x01 \x01(\v2\x0e.demo.BaseRespR\x03ret\x12(\n" +
+	"\x04body\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x04bodyB\x10Z\x0edemo/api/v1;v1b\x06proto3"
 
 var (
 	file_common_proto_rawDescOnce sync.Once
@@ -538,29 +255,22 @@ func file_common_proto_rawDescGZIP() []byte {
 	return file_common_proto_rawDescData
 }
 
-var file_common_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
-var file_common_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_common_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_common_proto_goTypes = []any{
-	(OrderType)(0),      // 0: cginstance.OrderType
-	(ResourceType)(0),   // 1: cginstance.ResourceType
-	(Source)(0),         // 2: cginstance.Source
-	(MultiOpenArch)(0),  // 3: cginstance.MultiOpenArch
-	(*BaseRequest)(nil), // 4: cginstance.BaseRequest
-	(*BaseResp)(nil),    // 5: cginstance.BaseResp
-	(*PageOptions)(nil), // 6: cginstance.PageOptions
-	(*Response)(nil),    // 7: cginstance.Response
-	(*Order)(nil),       // 8: cginstance.Order
-	(*anypb.Any)(nil),   // 9: google.protobuf.Any
+	(*BaseRequest)(nil), // 0: demo.BaseRequest
+	(*BaseResp)(nil),    // 1: demo.BaseResp
+	(*PageOptions)(nil), // 2: demo.PageOptions
+	(*Response)(nil),    // 3: demo.Response
+	(*anypb.Any)(nil),   // 4: google.protobuf.Any
 }
 var file_common_proto_depIdxs = []int32{
-	5, // 0: cginstance.Response.ret:type_name -> cginstance.BaseResp
-	9, // 1: cginstance.Response.body:type_name -> google.protobuf.Any
-	0, // 2: cginstance.Order.type:type_name -> cginstance.OrderType
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	1, // 0: demo.Response.ret:type_name -> demo.BaseResp
+	4, // 1: demo.Response.body:type_name -> google.protobuf.Any
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_common_proto_init() }
@@ -573,14 +283,13 @@ func file_common_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_common_proto_rawDesc), len(file_common_proto_rawDesc)),
-			NumEnums:      4,
-			NumMessages:   5,
+			NumEnums:      0,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_common_proto_goTypes,
 		DependencyIndexes: file_common_proto_depIdxs,
-		EnumInfos:         file_common_proto_enumTypes,
 		MessageInfos:      file_common_proto_msgTypes,
 	}.Build()
 	File_common_proto = out.File

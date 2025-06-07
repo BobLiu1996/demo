@@ -1,0 +1,19 @@
+source:
+  file: /home/mystic/workspace/demo/configs/file
+#source:
+#  apollo:
+#    app_id: "paas-cginstance"
+#    cluster: "default"
+#    endpoint: "${ENDPOINT:http://dev-pro-config-service.yuntiancloud.com}" #开发环境
+#    endpoint: "http://10.63.4.106:28080" #测试环境
+#    namespace: "server.yaml,data.yaml,biz.yaml"
+#    original_config: true
+#    enable_backup: true
+#    backup_path: "/app/configs"
+zap:
+  file: /home/mystic/workspace/demo/local_logs/demo.log
+  console: true
+  level: info
+  max_age: 5
+  max_size: 10
+  max_backups: 3

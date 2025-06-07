@@ -8,17 +8,15 @@ import (
 	"demo/pkg/client/db"
 	"github.com/google/wire"
 	"gorm.io/gorm"
-
-	"github.com/go-kratos/kratos/v2/log"
 )
 
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(NewData, ProvideGreeterRepo)
 
-func ProvideGreeterRepo(data *Data, logger log.Logger) biz.GreeterRepo {
+func ProvideGreeterRepo(data *Data) biz.GreeterRepo {
 	switch data.dataCfg.RepoSelector {
 	case "mysql":
-		return NewGreeterRepo(data, logger)
+		return NewGreeterRepo(data)
 	case "mock":
 		return NewMockGreeterRepo()
 	default:
@@ -36,9 +34,9 @@ type Data struct {
 }
 
 // NewData .
-func NewData(c *conf.Data, logger log.Logger) (*Data, func(), error) {
+func NewData(c *conf.Data) (*Data, func(), error) {
 	cleanup := func() {
-		log.NewHelper(logger).Info("closing the data resources")
+
 	}
 	d := &Data{
 		dataCfg: c,

@@ -19,7 +19,7 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationGreeterSvcListGreeter = "/demo.v1.GreeterSvc/ListGreeter"
+const OperationGreeterSvcListGreeter = "/demo.GreeterSvc/ListGreeter"
 
 type GreeterSvcHTTPServer interface {
 	// ListGreeter Sends a greeting

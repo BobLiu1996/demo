@@ -1,6 +1,6 @@
 ﻿syntax = "proto3";
 
-package cginstance;
+package demo;
 
 option go_package = "demo/api/v1;v1";
 
@@ -25,40 +25,4 @@ message PageOptions {
 message Response {
   BaseResp ret = 1;
   google.protobuf.Any body = 2;
-}
-
-message Order {
-  string field = 1;
-  // 枚举类型: ASC或DESC
-  OrderType type = 2;
-}
-
-enum OrderType{
-  ASC = 0;
-  DESC = 1;
-}
-
-// 资源类型: 0-All 1-私有资源池 2-公有资源池
-enum ResourceType {
-  All = 0;
-  Private = 1;
-  Public = 2;
-}
-
-// 任务来源 1-运营后台, 3-任务计划, 4-CGBundle,5-CGBoost,6-InstanceCure
-enum Source {
-  Unknown = 0;
-  // 来源于Iaas
-  CGBoss = 1;
-  TaskScheduler = 3;
-  CGBundle = 4;
-  CGBoost = 5;
-  InstanceCure = 6;
-}
-
-// 多开架构: 0-未知架构 1-单IP 2-多IP
-enum MultiOpenArch {
-  UnKnown = 0;
-  SingleIP = 1;
-  MultiIP = 2;
 }

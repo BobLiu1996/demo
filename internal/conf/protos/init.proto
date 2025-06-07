@@ -1,0 +1,39 @@
+syntax = "proto3";
+package conf;
+
+option go_package = "demo/internal/conf;conf";
+
+import "server.proto";
+import "data.proto";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+}
+
+message Config{
+  message Source {
+    Apollo apollo = 1;
+    string file = 2;
+  }
+  message Zap {
+    string file = 1; //日志文件路径
+    bool console = 2; //是否输出到终端，用于命令行启动显示
+    int32 max_age = 3; //最大存放天数，0为长期保存
+    string level = 4; //等级，默认info级别，有debug、info、warn、error等
+    int32 max_size = 5; //文件最大大小，M为单位
+    int32 max_backups = 6; //日志文件最大滚动数
+  }
+  message Apollo{
+    string app_id = 1;
+    string cluster = 2;
+    string endpoint = 3;
+    string namespace = 4;
+    bool original_config = 5;
+    bool enable_backup = 6;
+    string backup_path = 7;
+    string secret = 8;
+  }
+  Source source = 1; //配置源
+  Zap zap = 2; //日志配置
+}

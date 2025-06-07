@@ -158,6 +158,35 @@ func (m *ListGreeterRsp) validate(all bool) error {
 	var errors []error
 
 	if all {
+		switch v := interface{}(m.GetRet()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListGreeterRspValidationError{
+					field:  "Ret",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListGreeterRspValidationError{
+					field:  "Ret",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRet()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListGreeterRspValidationError{
+				field:  "Ret",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetBody()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {

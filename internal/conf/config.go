@@ -57,22 +57,9 @@ func (app *AppConfig) GetBootstrap() *Bootstrap {
 }
 
 func (app *AppConfig) handlerDataChange(key string, value config.Value) {
-	// var ctx = context.Background()
-	// log.Debugf(ctx, "before data[%+v] after data[%+v]", app.data, value)
-	// var data Data
-	// if err := value.Scan(&data); err != nil {
-	// 	log.Debugf(ctx, "scan Data err:%v", app.data, value)
-	// 	return
-	// }
-	// old, _ := app.data.Load(key)
-	// if reflect.DeepEqual(old, &data) {
-	// 	return
-	// }
 	for _, listener := range app.listeners[key] {
-		// listener.Notify(&data)
 		listener.Notify(value)
 	}
-	// app.data.Store(key, &data)
 }
 
 func (app *AppConfig) Register(key string, listener Listener) {

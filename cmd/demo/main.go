@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
+	"demo/internal/server"
 	"flag"
-
 	"github.com/go-kratos/kratos/v2/config/env"
 	"os"
 
@@ -34,7 +34,7 @@ func init() {
 	flag.StringVar(&flagconf, "conf", "../../configs", "config path, eg: -conf config.yaml")
 }
 
-func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server) *kratos.App {
+func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server, cronServer *server.CronServerImpl) *kratos.App {
 	return kratos.New(
 		kratos.ID(id),
 		kratos.Name(Name),
@@ -44,6 +44,7 @@ func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server) *kratos.App {
 		kratos.Server(
 			gs,
 			hs,
+			cronServer,
 		),
 	)
 }
@@ -73,7 +74,7 @@ func main() {
 
 	appConf := conf.NewAppConfig(bc.Source)
 	bs := appConf.GetBootstrap()
-	app, cleanup, err := wireApp(bs.Server, bs.Data, logger)
+	app, cleanup, err := wireApp(bs.Server, bs.Data, appConf, logger)
 	if err != nil {
 		panic(err)
 	}

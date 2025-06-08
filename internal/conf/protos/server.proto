@@ -20,11 +20,18 @@ message Server {
   }
   HTTP http = 1;
   GRPC grpc = 2;
-  Middleware middleware = 7; //中间件相关配置
+  Middleware middleware = 3; //中间件相关配置
+  repeated CronTask cron_tasks = 4; //定时任务
 }
 message Middleware {
   message Token {
     string jwt = 1;
   }
   Token token = 1; //token验证中间件
+}
+
+message CronTask {
+  string name = 1;
+  string spec = 2;
+  google.protobuf.Duration timeout = 3;
 }

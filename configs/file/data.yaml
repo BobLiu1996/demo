@@ -5,11 +5,10 @@ data:
     driver: mysql
     source: root:mystic@tcp(localhost:3306)/test?charset=utf8mb4&parseTime=true&loc=Local
   redis:
-    addr: "10.141.192.134:26379,10.141.192.135:26379,10.141.192.136:26379,10.141.192.137:26379,10.141.192.138:26379,10.141.192.139:26379"
-    username: ""
-    password: "viuRDS2793"
+    addr: "localhost:6379"
+    password: "mystic"
     db: 0
     pool: 250
     read_timeout: "5s"
     write_timeout: "5s"
-    is_cluster: true
+    is_cluster: false

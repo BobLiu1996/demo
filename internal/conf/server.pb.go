@@ -26,7 +26,8 @@ type Server struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Http          *Server_HTTP           `protobuf:"bytes,1,opt,name=http,proto3" json:"http,omitempty"`
 	Grpc          *Server_GRPC           `protobuf:"bytes,2,opt,name=grpc,proto3" json:"grpc,omitempty"`
-	Middleware    *Middleware            `protobuf:"bytes,7,opt,name=middleware,proto3" json:"middleware,omitempty"` //中间件相关配置
+	Middleware    *Middleware            `protobuf:"bytes,3,opt,name=middleware,proto3" json:"middleware,omitempty"`                //中间件相关配置
+	CronTasks     []*CronTask            `protobuf:"bytes,4,rep,name=cron_tasks,json=cronTasks,proto3" json:"cron_tasks,omitempty"` //定时任务
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -82,6 +83,13 @@ func (x *Server) GetMiddleware() *Middleware {
 	return nil
 }
 
+func (x *Server) GetCronTasks() []*CronTask {
+	if x != nil {
+		return x.CronTasks
+	}
+	return nil
+}
+
 type Middleware struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Token         *Middleware_Token      `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"` //token验证中间件
@@ -126,6 +134,66 @@ func (x *Middleware) GetToken() *Middleware_Token {
 	return nil
 }
 
+type CronTask struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Spec          string                 `protobuf:"bytes,2,opt,name=spec,proto3" json:"spec,omitempty"`
+	Timeout       *durationpb.Duration   `protobuf:"bytes,3,opt,name=timeout,proto3" json:"timeout,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CronTask) Reset() {
+	*x = CronTask{}
+	mi := &file_server_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CronTask) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CronTask) ProtoMessage() {}
+
+func (x *CronTask) ProtoReflect() protoreflect.Message {
+	mi := &file_server_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CronTask.ProtoReflect.Descriptor instead.
+func (*CronTask) Descriptor() ([]byte, []int) {
+	return file_server_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *CronTask) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CronTask) GetSpec() string {
+	if x != nil {
+		return x.Spec
+	}
+	return ""
+}
+
+func (x *CronTask) GetTimeout() *durationpb.Duration {
+	if x != nil {
+		return x.Timeout
+	}
+	return nil
+}
+
 type Server_HTTP struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Network       string                 `protobuf:"bytes,1,opt,name=network,proto3" json:"network,omitempty"`
@@ -137,7 +205,7 @@ type Server_HTTP struct {
 
 func (x *Server_HTTP) Reset() {
 	*x = Server_HTTP{}
-	mi := &file_server_proto_msgTypes[2]
+	mi := &file_server_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -149,7 +217,7 @@ func (x *Server_HTTP) String() string {
 func (*Server_HTTP) ProtoMessage() {}
 
 func (x *Server_HTTP) ProtoReflect() protoreflect.Message {
-	mi := &file_server_proto_msgTypes[2]
+	mi := &file_server_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -197,7 +265,7 @@ type Server_GRPC struct {
 
 func (x *Server_GRPC) Reset() {
 	*x = Server_GRPC{}
-	mi := &file_server_proto_msgTypes[3]
+	mi := &file_server_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -209,7 +277,7 @@ func (x *Server_GRPC) String() string {
 func (*Server_GRPC) ProtoMessage() {}
 
 func (x *Server_GRPC) ProtoReflect() protoreflect.Message {
-	mi := &file_server_proto_msgTypes[3]
+	mi := &file_server_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -255,7 +323,7 @@ type Middleware_Token struct {
 
 func (x *Middleware_Token) Reset() {
 	*x = Middleware_Token{}
-	mi := &file_server_proto_msgTypes[4]
+	mi := &file_server_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -267,7 +335,7 @@ func (x *Middleware_Token) String() string {
 func (*Middleware_Token) ProtoMessage() {}
 
 func (x *Middleware_Token) ProtoReflect() protoreflect.Message {
-	mi := &file_server_proto_msgTypes[4]
+	mi := &file_server_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -294,13 +362,15 @@ var File_server_proto protoreflect.FileDescriptor
 
 const file_server_proto_rawDesc = "" +
 	"\n" +
-	"\fserver.proto\x12\x04conf\x1a\x1egoogle/protobuf/duration.proto\"\xde\x02\n" +
+	"\fserver.proto\x12\x04conf\x1a\x1egoogle/protobuf/duration.proto\"\x8d\x03\n" +
 	"\x06Server\x12%\n" +
 	"\x04http\x18\x01 \x01(\v2\x11.conf.Server.HTTPR\x04http\x12%\n" +
 	"\x04grpc\x18\x02 \x01(\v2\x11.conf.Server.GRPCR\x04grpc\x120\n" +
 	"\n" +
-	"middleware\x18\a \x01(\v2\x10.conf.MiddlewareR\n" +
-	"middleware\x1ai\n" +
+	"middleware\x18\x03 \x01(\v2\x10.conf.MiddlewareR\n" +
+	"middleware\x12-\n" +
+	"\n" +
+	"cron_tasks\x18\x04 \x03(\v2\x0e.conf.CronTaskR\tcronTasks\x1ai\n" +
 	"\x04HTTP\x12\x18\n" +
 	"\anetwork\x18\x01 \x01(\tR\anetwork\x12\x12\n" +
 	"\x04addr\x18\x02 \x01(\tR\x04addr\x123\n" +
@@ -313,7 +383,11 @@ const file_server_proto_rawDesc = "" +
 	"Middleware\x12,\n" +
 	"\x05token\x18\x01 \x01(\v2\x16.conf.Middleware.TokenR\x05token\x1a\x19\n" +
 	"\x05Token\x12\x10\n" +
-	"\x03jwt\x18\x01 \x01(\tR\x03jwtB\x19Z\x17demo/internal/conf;confb\x06proto3"
+	"\x03jwt\x18\x01 \x01(\tR\x03jwt\"g\n" +
+	"\bCronTask\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
+	"\x04spec\x18\x02 \x01(\tR\x04spec\x123\n" +
+	"\atimeout\x18\x03 \x01(\v2\x19.google.protobuf.DurationR\atimeoutB\x19Z\x17demo/internal/conf;confb\x06proto3"
 
 var (
 	file_server_proto_rawDescOnce sync.Once
@@ -327,27 +401,30 @@ func file_server_proto_rawDescGZIP() []byte {
 	return file_server_proto_rawDescData
 }
 
-var file_server_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_server_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_server_proto_goTypes = []any{
 	(*Server)(nil),              // 0: conf.Server
 	(*Middleware)(nil),          // 1: conf.Middleware
-	(*Server_HTTP)(nil),         // 2: conf.Server.HTTP
-	(*Server_GRPC)(nil),         // 3: conf.Server.GRPC
-	(*Middleware_Token)(nil),    // 4: conf.Middleware.Token
-	(*durationpb.Duration)(nil), // 5: google.protobuf.Duration
+	(*CronTask)(nil),            // 2: conf.CronTask
+	(*Server_HTTP)(nil),         // 3: conf.Server.HTTP
+	(*Server_GRPC)(nil),         // 4: conf.Server.GRPC
+	(*Middleware_Token)(nil),    // 5: conf.Middleware.Token
+	(*durationpb.Duration)(nil), // 6: google.protobuf.Duration
 }
 var file_server_proto_depIdxs = []int32{
-	2, // 0: conf.Server.http:type_name -> conf.Server.HTTP
-	3, // 1: conf.Server.grpc:type_name -> conf.Server.GRPC
+	3, // 0: conf.Server.http:type_name -> conf.Server.HTTP
+	4, // 1: conf.Server.grpc:type_name -> conf.Server.GRPC
 	1, // 2: conf.Server.middleware:type_name -> conf.Middleware
-	4, // 3: conf.Middleware.token:type_name -> conf.Middleware.Token
-	5, // 4: conf.Server.HTTP.timeout:type_name -> google.protobuf.Duration
-	5, // 5: conf.Server.GRPC.timeout:type_name -> google.protobuf.Duration
-	6, // [6:6] is the sub-list for method output_type
-	6, // [6:6] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	2, // 3: conf.Server.cron_tasks:type_name -> conf.CronTask
+	5, // 4: conf.Middleware.token:type_name -> conf.Middleware.Token
+	6, // 5: conf.CronTask.timeout:type_name -> google.protobuf.Duration
+	6, // 6: conf.Server.HTTP.timeout:type_name -> google.protobuf.Duration
+	6, // 7: conf.Server.GRPC.timeout:type_name -> google.protobuf.Duration
+	8, // [8:8] is the sub-list for method output_type
+	8, // [8:8] is the sub-list for method input_type
+	8, // [8:8] is the sub-list for extension type_name
+	8, // [8:8] is the sub-list for extension extendee
+	0, // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_server_proto_init() }
@@ -361,7 +438,7 @@ func file_server_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_server_proto_rawDesc), len(file_server_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

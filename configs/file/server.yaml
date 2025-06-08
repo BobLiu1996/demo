@@ -8,3 +8,7 @@ server:
   middleware:
     token:
       jwt: demo-test
+  cron_tasks:
+  - name: SyncStatus
+    spec: 0/1 * * * * ?
+    timeout: 50s

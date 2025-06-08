@@ -8,6 +8,7 @@ require (
 	github.com/envoyproxy/protoc-gen-validate v1.0.4
 	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20250527152916-d6f5f00cf562
 	github.com/go-kratos/kratos/v2 v2.8.4
+	github.com/golang-jwt/jwt/v5 v5.1.0
 	github.com/google/gnostic v0.7.0
 	github.com/google/wire v0.6.0
 	go.uber.org/automaxprocs v1.5.1
